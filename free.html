@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="ar" dir="rtl" data-bs-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" href="/img/logo.png" type="image/webp">
+  <title>Free - Lua Support</title>
+  
+  <link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta20/dist/css/tabler.min.css" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
+  <link rel="stylesheet" href="style.css">
+  <script src="irbid.js" defer></script>
+</head>
+<body data-bs-theme="dark">
+  <div class="page">
+    
+    <!-- Navbar -->
+    <nav class="ipx-navbar" id="ipxNav">
+      <div class="ipx-nav-container">
+
+        <!-- Logo -->
+        <a href="/" class="ipx-logo">
+          <img src="/img/logo.png" alt="Logo" class="ipx-logo-img">
+          <span class="ipx-logo-text">Lua Support</span>
+        </a>
+
+        <!-- Center Links -->
+        <ul class="ipx-nav-links" id="ipxLinks">
+          <li class="">
+            <a href="/"><span>الرئيسية</span></a>
+          </li>
+          <li class="">
+            <a href="/store"><span>المنتجات</span></a>
+          </li>
+          <li class="">
+            <a href="/license"><span>رخصي</span></a>
+          </li>
+          <li class="">
+            <a href="/change"><span>التحكم</span></a>
+          </li>
+          <li class="ipx-active">
+            <a href="/free"><span>مجاني</span></a>
+          </li>
+
+          
+        </ul>
+
+        <!-- Right: Actions -->
+        <div class="ipx-nav-actions">
+          
+          <div class="ipx-user-menu">
+            <button class="ipx-avatar-btn" id="ipxAvatarBtn">
+              <img src="https://cdn.discordapp.com/avatars/1426513273188257852/a_32c14ca3beeae3ae94839d4295053478" alt="Avatar" class="ipx-avatar-img">
+              <div class="ipx-user-info">
+                <span class="ipx-user-name">Bahaa</span>
+                <span class="ipx-user-role">● متصل</span>
+              </div>
+              <i class="ti ti-chevron-down ipx-caret"></i>
+            </button>
+            <div class="ipx-dropdown ipx-user-dropdown" id="ipxUserDrop">
+              
+              <a href="/license"><i class="ti ti-id-badge"></i> رخصي المفعلة</a>
+              <div class="ipx-drop-divider"></div>
+              <a href="/logout" class="ipx-drop-danger"><i class="ti ti-logout"></i> تسجيل خروج</a>
+            </div>
+          </div>
+          
+
+          <!-- Mobile Toggle -->
+          <button class="ipx-toggle" id="ipxToggle" aria-label="Menu">
+            <i class="ti ti-menu-2"></i>
+          </button>
+        </div>
+
+      </div>
+
+      <!-- Mobile Drawer -->
+      <div class="ipx-mobile-menu" id="ipxMobile">
+        <a href="/" class="">
+          <i class="ti ti-home-2"></i> الرئيسية
+        </a>
+        <a href="/store" class="">
+          <i class="ti ti-shopping-bag"></i> المنتجات
+        </a>
+        <a href="/license" class="">
+          <i class="ti ti-id-badge"></i> رخصي
+        </a>
+        <a href="/change" class="">
+          <i class="ti ti-adjustments-horizontal"></i> التحكم
+        </a>
+        <a href="/free" class="ipx-mobile-active">
+          <i class="ti ti-gift"></i> مجاني
+        </a>
+
+        
+        <a href="/logout" style="color:#f87171"><i class="ti ti-logout"></i> تسجيل خروج</a>
+        
+      </div>
+    </nav>
+
+    
+
+    <script>
+    (function(){
+      const nav    = document.getElementById('ipxNav');
+      const toggle = document.getElementById('ipxToggle');
+      const mobile = document.getElementById('ipxMobile');
+      const avatarBtn = document.getElementById('ipxAvatarBtn');
+      const userDrop  = document.getElementById('ipxUserDrop');
+
+      // Scroll effect
+      window.addEventListener('scroll', function(){
+        nav.classList.toggle('ipx-scrolled', window.scrollY > 30);
+      }, { passive: true });
+
+      // Mobile toggle
+      if (toggle) {
+        toggle.addEventListener('click', function(){
+          mobile.classList.toggle('ipx-mobile-open');
+          toggle.querySelector('i').className = mobile.classList.contains('ipx-mobile-open')
+            ? 'ti ti-x' : 'ti ti-menu-2';
+        });
+      }
+
+      // User dropdown
+      if (avatarBtn && userDrop) {
+        avatarBtn.addEventListener('click', function(e){
+          e.stopPropagation();
+          userDrop.classList.toggle('ipx-drop-open');
+        });
+        document.addEventListener('click', function(){
+          userDrop.classList.remove('ipx-drop-open');
+        });
+      }
+
+      // Dropdown hover for desktop admin
+      document.querySelectorAll('.ipx-has-dropdown').forEach(function(item){
+        item.addEventListener('mouseenter', function(){
+          this.querySelector('.ipx-dropdown').style.display = 'flex';
+        });
+        item.addEventListener('mouseleave', function(){
+          this.querySelector('.ipx-dropdown').style.display = '';
+        });
+      });
+    })();
+    </script>
+
+
+<div class="page-wrapper py-5 position-relative" style="padding-top: 100px; padding-bottom: 60px;">
+  <div class="glowing-blob blob-1" style="top: 15%; left: 5%;"></div>
+  <div class="glowing-blob blob-2" style="bottom: 15%; right: 5%;"></div>
+  
+  <div class="container-xl position-relative" style="z-index: 1;" dir="rtl">
+    
+    <div class="page-header d-print-none mb-5 text-right" style="font-family: 'Alexandria', sans-serif;">
+      <div class="row g-2 align-items-center">
+        <div class="col">
+          <h2 class="page-title text-white fs-1"><i class="ti ti-gift text-gradient-indigo-cyan me-2"></i> المكتبة المجانية</h2>
+          <div class="text-muted mt-1 fs-4">تصفح وحمل أفضل السكربتات المجانية المتاحة للجميع</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row row-cards mb-6">
+      
+        <div class="col-12 text-center py-5 card" style="background: rgba(15, 17, 26, 0.4); border: 1px solid rgba(255,255,255,0.05); border-radius: 20px; font-family: 'Alexandria', sans-serif;">
+          <div class="empty-icon"><i class="ti ti-package-off empty-icon-custom"></i></div>
+          <p class="empty-title text-white fs-3 fw-bold mt-2">لا توجد سكربتات مجانية</p>
+          <p class="empty-subtitle text-muted fs-4">لم يتم إضافة أي سكربتات مجانية بعد. تابعنا لمعرفة كل جديد!</p>
+        </div>
+      
+    </div>
+
+  </div>
+</div>
+
+<style>
+.free-card {
+    background: rgba(15, 17, 26, 0.4);
+    border: 1px solid rgba(255,255,255,0.05);
+    border-radius: 20px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    backdrop-filter: blur(16px);
+}
+
+.free-card:hover {
+    border-color: rgba(6, 182, 212, 0.4);
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), 0 0 25px rgba(6, 182, 212, 0.15);
+}
+
+.free-card:hover .free-img {
+    transform: scale(1.08);
+}
+
+.free-badge {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    background: rgba(16, 185, 129, 0.15) !important;
+    border: 1px solid rgba(16, 185, 129, 0.4) !important;
+    color: #10b981 !important;
+    backdrop-filter: blur(8px);
+    font-weight: 700;
+    padding: 6px 12px !important;
+    border-radius: 8px;
+    font-size: 0.8rem;
+    box-shadow: 0 0 10px rgba(16, 185, 129, 0.1);
+}
+
+.btn-free-download:hover {
+    background: linear-gradient(135deg, #0891b2, #0e7490) !important;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(6, 182, 212, 0.4) !important;
+}
+
+.btn-free-video:hover:not([disabled]) {
+    background: rgba(244, 63, 94, 0.1) !important;
+    border-color: rgba(244, 63, 94, 0.3) !important;
+    color: #f43f5e !important;
+    transform: translateY(-2px);
+}
+
+.empty-icon-custom {
+    font-size: 3.5rem;
+    background: linear-gradient(135deg, #6366f1, #f43f5e);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    display: inline-block;
+    animation: float-icon 3s ease-in-out infinite;
+    margin-bottom: 15px;
+}
+
+@keyframes float-icon {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+}
+</style>
+
+<script src="https://a.cordly.de/tablerio/dist/js/tabler.min.js"></script>
+</body>
+</html>

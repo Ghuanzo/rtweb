@@ -1,0 +1,443 @@
+<!doctype html>
+<html lang="ar" dir="rtl" data-bs-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" href="/img/logo.png" type="image/webp">
+  <title>Change - Lua Support</title>
+  
+  <link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta20/dist/css/tabler.min.css" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
+  <link rel="stylesheet" href="style.css">
+  <script src="irbid.js" defer></script>
+</head>
+<body data-bs-theme="dark">
+  <div class="page">
+    
+    <!-- Navbar -->
+    <nav class="ipx-navbar" id="ipxNav">
+      <div class="ipx-nav-container">
+
+        <!-- Logo -->
+        <a href="/" class="ipx-logo">
+          <img src="/img/logo.png" alt="Logo" class="ipx-logo-img">
+          <span class="ipx-logo-text">Lua Support</span>
+        </a>
+
+        <!-- Center Links -->
+        <ul class="ipx-nav-links" id="ipxLinks">
+          <li class="">
+            <a href="/"><span>الرئيسية</span></a>
+          </li>
+          <li class="">
+            <a href="/store"><span>المنتجات</span></a>
+          </li>
+          <li class="">
+            <a href="/license"><span>رخصي</span></a>
+          </li>
+          <li class="ipx-active">
+            <a href="/change"><span>التحكم</span></a>
+          </li>
+          <li class="">
+            <a href="/free"><span>مجاني</span></a>
+          </li>
+
+          
+        </ul>
+
+        <!-- Right: Actions -->
+        <div class="ipx-nav-actions">
+          
+          <div class="ipx-user-menu">
+            <button class="ipx-avatar-btn" id="ipxAvatarBtn">
+              <img src="https://cdn.discordapp.com/avatars/1426513273188257852/a_32c14ca3beeae3ae94839d4295053478" alt="Avatar" class="ipx-avatar-img">
+              <div class="ipx-user-info">
+                <span class="ipx-user-name">Bahaa</span>
+                <span class="ipx-user-role">● متصل</span>
+              </div>
+              <i class="ti ti-chevron-down ipx-caret"></i>
+            </button>
+            <div class="ipx-dropdown ipx-user-dropdown" id="ipxUserDrop">
+              
+              <a href="/license"><i class="ti ti-id-badge"></i> رخصي المفعلة</a>
+              <div class="ipx-drop-divider"></div>
+              <a href="/logout" class="ipx-drop-danger"><i class="ti ti-logout"></i> تسجيل خروج</a>
+            </div>
+          </div>
+          
+
+          <!-- Mobile Toggle -->
+          <button class="ipx-toggle" id="ipxToggle" aria-label="Menu">
+            <i class="ti ti-menu-2"></i>
+          </button>
+        </div>
+
+      </div>
+
+      <!-- Mobile Drawer -->
+      <div class="ipx-mobile-menu" id="ipxMobile">
+        <a href="/" class="">
+          <i class="ti ti-home-2"></i> الرئيسية
+        </a>
+        <a href="/store" class="">
+          <i class="ti ti-shopping-bag"></i> المنتجات
+        </a>
+        <a href="/license" class="">
+          <i class="ti ti-id-badge"></i> رخصي
+        </a>
+        <a href="/change" class="ipx-mobile-active">
+          <i class="ti ti-adjustments-horizontal"></i> التحكم
+        </a>
+        <a href="/free" class="">
+          <i class="ti ti-gift"></i> مجاني
+        </a>
+
+        
+        <a href="/logout" style="color:#f87171"><i class="ti ti-logout"></i> تسجيل خروج</a>
+        
+      </div>
+    </nav>
+
+    
+
+    <script>
+    (function(){
+      const nav    = document.getElementById('ipxNav');
+      const toggle = document.getElementById('ipxToggle');
+      const mobile = document.getElementById('ipxMobile');
+      const avatarBtn = document.getElementById('ipxAvatarBtn');
+      const userDrop  = document.getElementById('ipxUserDrop');
+
+      // Scroll effect
+      window.addEventListener('scroll', function(){
+        nav.classList.toggle('ipx-scrolled', window.scrollY > 30);
+      }, { passive: true });
+
+      // Mobile toggle
+      if (toggle) {
+        toggle.addEventListener('click', function(){
+          mobile.classList.toggle('ipx-mobile-open');
+          toggle.querySelector('i').className = mobile.classList.contains('ipx-mobile-open')
+            ? 'ti ti-x' : 'ti ti-menu-2';
+        });
+      }
+
+      // User dropdown
+      if (avatarBtn && userDrop) {
+        avatarBtn.addEventListener('click', function(e){
+          e.stopPropagation();
+          userDrop.classList.toggle('ipx-drop-open');
+        });
+        document.addEventListener('click', function(){
+          userDrop.classList.remove('ipx-drop-open');
+        });
+      }
+
+      // Dropdown hover for desktop admin
+      document.querySelectorAll('.ipx-has-dropdown').forEach(function(item){
+        item.addEventListener('mouseenter', function(){
+          this.querySelector('.ipx-dropdown').style.display = 'flex';
+        });
+        item.addEventListener('mouseleave', function(){
+          this.querySelector('.ipx-dropdown').style.display = '';
+        });
+      });
+    })();
+    </script>
+
+
+<div class="page-wrapper position-relative" style="padding-top: 20px; padding-bottom: 80px; min-height: 100vh;">
+  <div class="glowing-blob blob-1" style="top: 20%; left: 10%;"></div>
+  <div class="glowing-blob blob-2" style="bottom: 20%; right: 10%;"></div>
+
+  <div class="container position-relative" style="z-index: 1; max-width: 800px;" dir="rtl">
+    
+    <!-- External Page Title -->
+    <div style="text-align: right; margin-bottom: 24px;">
+        <h1 style="font-family: 'Alexandria', sans-serif; font-size: 1.6rem; font-weight: 900; color: #f8fafc; margin: 0;">
+            تعديل <span style="background: linear-gradient(135deg, #a855f7, #6366f1); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">بيانات الترخيص</span>
+        </h1>
+        <p style="font-family: 'Alexandria', sans-serif; font-size: 0.85rem; color: #64748b; margin-top: 8px;">
+            تحديث وتغيير IP السيرفر واسمه لترخيص معين أو لجميع التراخيص.
+        </p>
+    </div>
+
+    <div class="chg-premium-wrapper">
+        <!-- Visual Branding Side -->
+        <div class="chg-visual-side">
+            <div class="chg-visual-bg"></div>
+            <div class="chg-visual-content">
+                <div class="chg-icon-ring">
+                    <i class="ti ti-shield-lock"></i>
+                </div>
+                <p style="font-size: 0.9rem; margin-bottom: 25px;">قم بتأمين بيانات سيرفرك بسهولة. التغييرات تنعكس فوراً.</p>
+                
+                <div class="chg-features">
+                    <div class="chg-feature-item">
+                        <i class="ti ti-check"></i> تغيير IP السيرفر
+                    </div>
+                    <div class="chg-feature-item">
+                        <i class="ti ti-check"></i> تحديث اسم السيرفر
+                    </div>
+                    <div class="chg-feature-item">
+                        <i class="ti ti-check"></i> تطبيق على الكل
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Form Side -->
+        <div class="chg-form-side">
+            
+            <form method="POST" action="/change">
+                
+                <!-- Script Select -->
+                <div class="chg-premium-field">
+                    <label>السكربت المراد تعديله</label>
+                    <div class="chg-input-group">
+                        <span class="chg-input-icon"><i class="ti ti-script"></i></span>
+                        <select name="ScriptId" class="chg-premium-input">
+                            <option value="0">--- تحديث جميع السكربتات ---</option>
+                            
+                        </select>
+                        <i class="ti ti-chevron-down chg-select-arrow"></i>
+                    </div>
+                </div>
+
+                <!-- Server Name -->
+                <div class="chg-premium-field">
+                    <label>اسم السيرفر الجديد</label>
+                    <div class="chg-input-group">
+                        <span class="chg-input-icon"><i class="ti ti-server"></i></span>
+                        <input type="text" class="chg-premium-input" name="ServerName" placeholder="Lua Support" required>
+                    </div>
+                </div>
+
+                <!-- Server IP -->
+                <div class="chg-premium-field">
+                    <label>IP السيرفر الجديد</label>
+                    <div class="chg-input-group">
+                        <span class="chg-input-icon"><i class="ti ti-network"></i></span>
+                        <input type="text" class="chg-premium-input chg-ltr" name="Ip" placeholder="127.0.0.1" required>
+                    </div>
+                    <div class="chg-hint-text"><i class="ti ti-info-circle"></i> الإدخال الصحيح يمنع تعطل السكربت</div>
+                </div>
+
+                <button type="submit" class="chg-premium-submit">
+                    <span>حفظ التغييرات</span>
+                    <i class="ti ti-device-floppy"></i>
+                </button>
+            </form>
+        </div>
+    </div>
+
+  </div>
+</div>
+
+<style>
+/* ===== PREMIUM CHANGE PAGE ===== */
+.chg-premium-wrapper {
+    display: flex;
+    flex-direction: column;
+    background: #0b0d14;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.5), 0 0 30px rgba(168, 85, 247, 0.05);
+}
+@media(min-width: 900px) {
+    .chg-premium-wrapper {
+        flex-direction: row;
+    }
+}
+
+/* Visual Side */
+.chg-visual-side {
+    position: relative;
+    flex: 0.9;
+    background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%);
+    padding: 35px 25px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.chg-visual-bg {
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(circle at 50% -20%, rgba(168, 85, 247, 0.4) 0%, transparent 70%);
+    opacity: 0.8;
+}
+.chg-visual-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+}
+.chg-icon-ring {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+    font-size: 2rem;
+    color: #e0e7ff;
+    box-shadow: 0 0 25px rgba(168, 85, 247, 0.3);
+    position: relative;
+}
+.chg-icon-ring::before {
+    content: '';
+    position: absolute;
+    inset: -8px;
+    border-radius: 50%;
+    border: 1px dashed rgba(168, 85, 247, 0.4);
+    animation: rotateSlow 20s linear infinite;
+}
+@keyframes rotateSlow { 100% { transform: rotate(360deg); } }
+
+.chg-visual-content p {
+    font-family: 'Alexandria', sans-serif;
+    color: #c7d2fe;
+    line-height: 1.5;
+}
+.chg-features {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+}
+.chg-feature-item {
+    background: rgba(0,0,0,0.2);
+    padding: 8px 16px;
+    border-radius: 30px;
+    font-family: 'Alexandria', sans-serif;
+    font-size: 0.8rem;
+    color: #e0e7ff;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border: 1px solid rgba(255,255,255,0.05);
+}
+.chg-feature-item i { color: #10b981; }
+
+/* Form Side */
+.chg-form-side {
+    flex: 1.1;
+    padding: 35px 30px;
+    background: #0f111a;
+}
+.chg-form-title {
+    font-family: 'Alexandria', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: #f8fafc;
+    margin-bottom: 5px;
+}
+.chg-form-subtitle {
+    font-family: 'Alexandria', sans-serif;
+    font-size: 0.9rem;
+    color: #64748b;
+    margin-bottom: 35px;
+}
+
+.chg-premium-field {
+    margin-bottom: 24px;
+}
+.chg-premium-field label {
+    display: block;
+    font-family: 'Alexandria', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #94a3b8;
+    margin-bottom: 8px;
+}
+.chg-input-group {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+.chg-input-icon {
+    position: absolute;
+    right: 16px;
+    color: #6366f1;
+    font-size: 1.2rem;
+    pointer-events: none;
+    z-index: 2;
+}
+.chg-select-arrow {
+    position: absolute;
+    left: 16px;
+    color: #64748b;
+    pointer-events: none;
+}
+.chg-premium-input {
+    width: 100%;
+    background: rgba(0,0,0,0.2);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 14px;
+    padding: 16px 45px 16px 16px;
+    color: #ffffff;
+    font-family: 'Alexandria', sans-serif;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+    appearance: none;
+}
+.chg-premium-input:focus {
+    outline: none;
+    background: rgba(0,0,0,0.4);
+    border-color: #a855f7;
+    box-shadow: 0 0 0 4px rgba(168, 85, 247, 0.1);
+}
+.chg-premium-input option {
+    background: #0f111a;
+    color: #fff;
+}
+.chg-ltr {
+    direction: ltr;
+    text-align: left;
+    font-family: 'Courier New', monospace;
+    letter-spacing: 1px;
+}
+.chg-hint-text {
+    font-family: 'Alexandria', sans-serif;
+    font-size: 0.75rem;
+    color: #64748b;
+    margin-top: 8px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+.chg-hint-text i { color: #a855f7; }
+
+.chg-premium-submit {
+    width: 100%;
+    padding: 18px;
+    margin-top: 10px;
+    background: linear-gradient(135deg, #a855f7 0%, #6366f1 100%);
+    border: none;
+    border-radius: 14px;
+    color: #ffffff;
+    font-family: 'Alexandria', sans-serif;
+    font-size: 1.05rem;
+    font-weight: 800;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: all 0.3s;
+    box-shadow: 0 10px 25px rgba(168, 85, 247, 0.3);
+}
+.chg-premium-submit:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 35px rgba(168, 85, 247, 0.4);
+}
+</style>
+
+<script src="https://a.cordly.de/tablerio/dist/js/tabler.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-bs-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>تسجيل الدخول - Lua Support</title>
+  <link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/@tabler/core@latest/dist/css/tabler.min.css" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
+  <link rel="stylesheet" href="style.css">
+  <script src="irbid.js" defer></script>
+  
+  <style>
+      body, html { height: 100%; margin: 0; background-color: var(--bg-dark); }
+  </style>
+</head>
+
+<body>
+  
+
+  <!-- Background blobs -->
+  <div style="position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none;">
+    <div style="position:absolute;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(168,85,247,0.22) 0%,transparent 70%);top:-200px;right:-200px;filter:blur(80px);animation:blobFloat1 8s ease-in-out infinite alternate;"></div>
+    <div style="position:absolute;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(99,102,241,0.18) 0%,transparent 70%);bottom:-150px;left:-150px;filter:blur(80px);animation:blobFloat2 10s ease-in-out infinite alternate;"></div>
+  </div>
+
+  <div class="auth-page-wrap">
+
+    <!-- Left: Form Panel -->
+    <div class="auth-form-panel">
+      <div class="auth-form-inner">
+
+        <!-- Logo -->
+        <a href="/" class="auth-logo-link">
+          <img src="/img/logo.png" alt="Logo" class="auth-logo-img">
+          <span class="auth-logo-name">Lua Support</span>
+        </a>
+
+        <!-- Title -->
+        <div class="auth-title-wrap">
+          <h1 class="auth-title" style="font-family: 'Alexandria', sans-serif;">مرحباً بعودتك <span>👋</span></h1>
+          <p class="auth-subtitle" style="font-family: 'Alexandria', sans-serif;">أدخل بياناتك للدخول إلى حسابك</p>
+        </div>
+
+        <!-- Form -->
+        <form action="/login" method="POST" autocomplete="off" class="auth-form">
+          <div class="auth-field" style="font-family: 'Alexandria', sans-serif;">
+            <label class="auth-label">اسم المستخدم</label>
+            <div class="auth-input-wrap">
+              <i class="ti ti-user auth-input-icon"></i>
+              <input type="text" name="username" class="auth-input" placeholder="أدخل اسم المستخدم" required style="text-align: right;" autocomplete="off">
+            </div>
+          </div>
+
+          <div class="auth-field" style="font-family: 'Alexandria', sans-serif;">
+            <label class="auth-label">كلمة المرور</label>
+            <div class="auth-input-wrap">
+              <i class="ti ti-lock auth-input-icon"></i>
+              <input type="password" name="password" id="passwordField" class="auth-input" placeholder="••••••••" required style="text-align: right;" autocomplete="off">
+              <button type="button" class="auth-eye-btn" onclick="togglePass()" style="left: 16px; right: auto;">
+                <i class="ti ti-eye" id="eyeIcon"></i>
+              </button>
+            </div>
+          </div>
+
+          <button type="submit" class="auth-submit-btn" style="font-family: 'Alexandria', sans-serif;">
+            <i class="ti ti-login"></i>
+            تسجيل الدخول
+          </button>
+        </form>
+
+        <!-- Divider -->
+        <div class="auth-divider" style="font-family: 'Alexandria', sans-serif;"><span>أو تسجيل الدخول عبر</span></div>
+
+        <!-- Social -->
+        <div class="auth-social-row">
+          <a href="https://discord.com/oauth2/authorize?client_id=1469058759023395008&amp;response_type=code&amp;redirect_uri=http%3A%2F%2Fluaspport.shop%2Fprocess-oauth&amp;scope=identify+email+guilds+guilds.join" class="auth-social-btn auth-discord" style="font-family: 'Alexandria', sans-serif;">
+            <i class="ti ti-brand-discord"></i>
+            <span>Discord</span>
+          </a>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Right: Visual Panel -->
+    <div class="auth-visual-panel">
+      <div class="auth-visual-inner">
+
+        <!-- Code mockup -->
+        <div class="auth-mockup">
+          <div class="mockup-header">
+            <div class="mockup-dots">
+              <div class="mockup-dot dot-r"></div>
+              <div class="mockup-dot dot-y"></div>
+              <div class="mockup-dot dot-g"></div>
+            </div>
+            <div class="mockup-title">auth_verifier.lua</div>
+          </div>
+          <div class="mockup-body">
+            <div class="mockup-line"><span class="ml-num">1</span><span class="ml-comm">-- FiveM Auth Check</span></div>
+            <div class="mockup-line"><span class="ml-num">2</span><span class="ml-kw">local</span> <span class="ml-var">license</span> <span class="ml-op">=</span> <span class="ml-fn">GetLicenseKey</span>()</div>
+            <div class="mockup-line"><span class="ml-num">3</span><span class="ml-kw">local</span> <span class="ml-var">status</span><span class="ml-op">,</span> <span class="ml-var">res</span> <span class="ml-op">=</span> <span class="ml-fn">VerifyLicense</span>(<span class="ml-var">license</span>)</div>
+            <div class="mockup-line"><span class="ml-num">4</span></div>
+            <div class="mockup-line"><span class="ml-num">5</span><span class="ml-kw">if</span> <span class="ml-var">status</span> <span class="ml-op">==</span> <span class="ml-str">"active"</span> <span class="ml-kw">then</span></div>
+            <div class="mockup-line"><span class="ml-num">6</span>  <span class="ml-fn">print</span>(<span class="ml-str">"[✓] License verified!"</span>)</div>
+            <div class="mockup-line"><span class="ml-num">7</span>  <span class="ml-fn">TriggerEvent</span>(<span class="ml-str">"lua:loadScripts"</span>)</div>
+            <div class="mockup-line"><span class="ml-num">8</span><span class="ml-kw">else</span></div>
+            <div class="mockup-line"><span class="ml-num">9</span>  <span class="ml-fn">print</span>(<span class="ml-str">"[✗] Invalid token."</span>)</div>
+            <div class="mockup-line"><span class="ml-num">10</span><span class="ml-kw">end</span></div>
+          </div>
+        </div>
+
+        <!-- Feature pills -->
+        <div class="auth-pills" style="font-family: 'Alexandria', sans-serif;">
+          <div class="auth-pill"><i class="ti ti-shield-check"></i> حماية متقدمة</div>
+          <div class="auth-pill"><i class="ti ti-bolt"></i> أداء 0.00ms</div>
+          <div class="auth-pill"><i class="ti ti-24-hours"></i> دعم 24/7</div>
+        </div>
+
+        <!-- Quote -->
+        <div class="auth-quote" style="font-family: 'Alexandria', sans-serif;">
+          <div class="auth-quote-text">"أفضل حلول FiveM الاحترافية بضمان كامل"</div>
+          <div class="auth-quote-author">— فريق Lua Support</div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@tabler/core@latest/dist/js/tabler.min.js"></script>
+  <script>
+    function togglePass() {
+      const f = document.getElementById('passwordField');
+      const i = document.getElementById('eyeIcon');
+      if (f.type === 'password') {
+        f.type = 'text';
+        i.className = 'ti ti-eye-off';
+      } else {
+        f.type = 'password';
+        i.className = 'ti ti-eye';
+      }
+    }
+  </script>
+</body>
+</html>

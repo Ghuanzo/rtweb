@@ -1,0 +1,822 @@
+<!doctype html>
+<html lang="ar" dir="rtl" data-bs-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" href="/img/logo.png" type="image/webp">
+  <title>License - Lua Support</title>
+  
+  <link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta20/dist/css/tabler.min.css" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
+  <link rel="stylesheet" href="style.css">
+  <script src="irbid.js" defer></script>
+</head>
+<body data-bs-theme="dark">
+  <div class="page">
+    
+    <!-- Navbar -->
+    <nav class="ipx-navbar" id="ipxNav">
+      <div class="ipx-nav-container">
+
+        <!-- Logo -->
+        <a href="/" class="ipx-logo">
+          <img src="/img/logo.png" alt="Logo" class="ipx-logo-img">
+          <span class="ipx-logo-text">Lua Support</span>
+        </a>
+
+        <!-- Center Links -->
+        <ul class="ipx-nav-links" id="ipxLinks">
+          <li class="">
+            <a href="/"><span>الرئيسية</span></a>
+          </li>
+          <li class="">
+            <a href="/store"><span>المنتجات</span></a>
+          </li>
+          <li class="ipx-active">
+            <a href="/license"><span>رخصي</span></a>
+          </li>
+          <li class="">
+            <a href="/change"><span>التحكم</span></a>
+          </li>
+          <li class="">
+            <a href="/free"><span>مجاني</span></a>
+          </li>
+
+          
+        </ul>
+
+        <!-- Right: Actions -->
+        <div class="ipx-nav-actions">
+          
+          <div class="ipx-user-menu">
+            <button class="ipx-avatar-btn" id="ipxAvatarBtn">
+              <img src="https://cdn.discordapp.com/avatars/1426513273188257852/a_32c14ca3beeae3ae94839d4295053478" alt="Avatar" class="ipx-avatar-img">
+              <div class="ipx-user-info">
+                <span class="ipx-user-name">Bahaa</span>
+                <span class="ipx-user-role">● متصل</span>
+              </div>
+              <i class="ti ti-chevron-down ipx-caret"></i>
+            </button>
+            <div class="ipx-dropdown ipx-user-dropdown" id="ipxUserDrop">
+              
+              <a href="/license"><i class="ti ti-id-badge"></i> رخصي المفعلة</a>
+              <div class="ipx-drop-divider"></div>
+              <a href="/logout" class="ipx-drop-danger"><i class="ti ti-logout"></i> تسجيل خروج</a>
+            </div>
+          </div>
+          
+
+          <!-- Mobile Toggle -->
+          <button class="ipx-toggle" id="ipxToggle" aria-label="Menu">
+            <i class="ti ti-menu-2"></i>
+          </button>
+        </div>
+
+      </div>
+
+      <!-- Mobile Drawer -->
+      <div class="ipx-mobile-menu" id="ipxMobile">
+        <a href="/" class="">
+          <i class="ti ti-home-2"></i> الرئيسية
+        </a>
+        <a href="/store" class="">
+          <i class="ti ti-shopping-bag"></i> المنتجات
+        </a>
+        <a href="/license" class="ipx-mobile-active">
+          <i class="ti ti-id-badge"></i> رخصي
+        </a>
+        <a href="/change" class="">
+          <i class="ti ti-adjustments-horizontal"></i> التحكم
+        </a>
+        <a href="/free" class="">
+          <i class="ti ti-gift"></i> مجاني
+        </a>
+
+        
+        <a href="/logout" style="color:#f87171"><i class="ti ti-logout"></i> تسجيل خروج</a>
+        
+      </div>
+    </nav>
+
+    
+
+    <script>
+    (function(){
+      const nav    = document.getElementById('ipxNav');
+      const toggle = document.getElementById('ipxToggle');
+      const mobile = document.getElementById('ipxMobile');
+      const avatarBtn = document.getElementById('ipxAvatarBtn');
+      const userDrop  = document.getElementById('ipxUserDrop');
+
+      // Scroll effect
+      window.addEventListener('scroll', function(){
+        nav.classList.toggle('ipx-scrolled', window.scrollY > 30);
+      }, { passive: true });
+
+      // Mobile toggle
+      if (toggle) {
+        toggle.addEventListener('click', function(){
+          mobile.classList.toggle('ipx-mobile-open');
+          toggle.querySelector('i').className = mobile.classList.contains('ipx-mobile-open')
+            ? 'ti ti-x' : 'ti ti-menu-2';
+        });
+      }
+
+      // User dropdown
+      if (avatarBtn && userDrop) {
+        avatarBtn.addEventListener('click', function(e){
+          e.stopPropagation();
+          userDrop.classList.toggle('ipx-drop-open');
+        });
+        document.addEventListener('click', function(){
+          userDrop.classList.remove('ipx-drop-open');
+        });
+      }
+
+      // Dropdown hover for desktop admin
+      document.querySelectorAll('.ipx-has-dropdown').forEach(function(item){
+        item.addEventListener('mouseenter', function(){
+          this.querySelector('.ipx-dropdown').style.display = 'flex';
+        });
+        item.addEventListener('mouseleave', function(){
+          this.querySelector('.ipx-dropdown').style.display = '';
+        });
+      });
+    })();
+    </script>
+
+
+<div class="page-wrapper position-relative" style="padding-top: 20px; padding-bottom: 80px; min-height: 100vh;">
+  <div class="glowing-blob blob-1" style="top: 10%; left: 5%;"></div>
+  <div class="glowing-blob blob-2" style="bottom: 10%; right: 5%;"></div>
+  
+  <div class="container-xl position-relative" style="z-index: 1;" dir="rtl">
+    
+    <!-- Page Header -->
+    <div class="lic-page-header">
+      <div>
+        <h1 class="lic-page-title">رخصي <span>المفعلة</span> <i class="ti ti-certificate lic-title-icon"></i></h1>
+        <p class="lic-page-desc">إدارة وتفعيل تراخيص سكربتات FiveM الخاصة بسيرفرك</p>
+      </div>
+      <div class="lic-header-stat">
+        <i class="ti ti-certificate"></i>
+        <span>0 رخصة مفعلة</span>
+      </div>
+    </div>
+
+    <!-- License Grid -->
+    <div class="license-grid">
+      
+        <div class="lic-empty">
+          <div class="lic-empty-icon"><i class="ti ti-certificate-off"></i></div>
+          <h3>لا توجد رخص مفعلة</h3>
+          <p>لم تقم بشراء أي سكربتات بعد. تصفح المتجر لاكتشاف أفضل السكربتات!</p>
+          <a href="/store" class="lic-btn lic-btn-download" style="display: inline-flex; width: auto; padding: 14px 32px;">
+            <i class="ti ti-shopping-cart"></i> تصفح المتجر
+          </a>
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+<!-- Rating Modal -->
+<div class="modal fade" id="reviewModal" tabindex="-1" role="dialog" aria-hidden="true" style="z-index: 99999;">
+  <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+    <div class="review-modal-box">
+      <!-- Header -->
+      <div class="review-modal-header">
+        <div class="review-modal-title">
+          <i class="ti ti-star-filled"></i>
+          <div>
+            <div style="font-size:0.7rem; color:#64748b; font-weight:600; letter-spacing:1px; text-transform:uppercase; margin-bottom:2px;">تقييم المنتج</div>
+            <div id="modalScriptName" style="font-size:1rem; font-weight:800; background: linear-gradient(135deg, #818cf8, #06b6d4); -webkit-background-clip:text; -webkit-text-fill-color:transparent;"></div>
+          </div>
+        </div>
+        <button class="review-close-btn" data-bs-dismiss="modal" onclick="closeReviewModal()">
+          <i class="ti ti-x"></i>
+        </button>
+      </div>
+
+      <form method="POST" action="/license/review">
+        <div class="review-modal-body">
+          <input type="hidden" name="script_name" id="inputScriptName">
+
+          <!-- Stars -->
+          <div class="review-stars-section">
+            <div class="review-stars-label">كم نجمة يستحق هذا العمل؟</div>
+            <div class="rating">
+              <input type="radio" name="rating" value="5" id="r5" required><label for="r5">★</label>
+              <input type="radio" name="rating" value="4" id="r4"><label for="r4">★</label>
+              <input type="radio" name="rating" value="3" id="r3"><label for="r3">★</label>
+              <input type="radio" name="rating" value="2" id="r2"><label for="r2">★</label>
+              <input type="radio" name="rating" value="1" id="r1"><label for="r1">★</label>
+            </div>
+          </div>
+
+          <!-- Comment -->
+          <div class="review-comment-section">
+            <label class="review-comment-label"><i class="ti ti-message"></i> رأيك يهمنا</label>
+            <textarea name="comment" rows="3" placeholder="اكتب تجربتك الحقيقية مع السكربت..." required class="review-textarea"></textarea>
+          </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="review-modal-footer">
+          <button type="submit" class="review-submit-btn">
+            <i class="ti ti-send"></i> إرسال التقييم
+          </button>
+          <button type="button" class="review-cancel-btn" data-bs-dismiss="modal" onclick="closeReviewModal()">إلغاء</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<style>
+.review-modal-box {
+  background: linear-gradient(145deg, #0d0e1a, #111320);
+  border: 1px solid rgba(129, 140, 248, 0.2);
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 30px 80px rgba(0,0,0,0.8), 0 0 40px rgba(99,102,241,0.08);
+}
+.review-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 20px;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  background: rgba(99,102,241,0.05);
+}
+.review-modal-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-direction: row-reverse;
+}
+.review-modal-title > i {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, rgba(129,140,248,0.2), rgba(6,182,212,0.2));
+  border: 1px solid rgba(129,140,248,0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fbbf24;
+  font-size: 1.1rem;
+  flex-shrink: 0;
+}
+.review-close-btn {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.08);
+  color: #64748b;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+  transition: all 0.2s;
+  flex-shrink: 0;
+}
+.review-close-btn:hover { background: rgba(239,68,68,0.1); color: #ef4444; border-color: rgba(239,68,68,0.3); }
+
+.review-modal-body { padding: 20px; display: flex; flex-direction: column; gap: 18px; }
+
+/* Stars */
+.review-stars-section { text-align: center; }
+.review-stars-label {
+  font-family: 'Alexandria', sans-serif;
+  font-size: 0.82rem;
+  color: #64748b;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+.rating { display: flex; flex-direction: row-reverse; justify-content: center; gap: 6px; }
+.rating input { display: none; }
+.rating label {
+  cursor: pointer;
+  color: rgba(255,255,255,0.1);
+  font-size: 2rem;
+  transition: all 0.2s ease;
+  text-shadow: none;
+}
+.rating input:checked ~ label,
+.rating label:hover,
+.rating label:hover ~ label {
+  color: #fbbf24;
+  text-shadow: 0 0 15px rgba(251,191,36,0.5);
+  transform: scale(1.1);
+}
+
+/* Comment */
+.review-comment-section { display: flex; flex-direction: column; gap: 8px; }
+.review-comment-label {
+  font-family: 'Alexandria', sans-serif;
+  font-size: 0.8rem;
+  color: #64748b;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-direction: row-reverse;
+  justify-content: flex-end;
+}
+.review-textarea {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 12px;
+  color: #e2e8f0;
+  font-family: 'Alexandria', sans-serif;
+  font-size: 0.85rem;
+  padding: 12px 14px;
+  resize: none;
+  width: 100%;
+  transition: all 0.2s;
+  direction: rtl;
+}
+.review-textarea:focus {
+  outline: none;
+  border-color: rgba(129,140,248,0.5);
+  box-shadow: 0 0 0 3px rgba(99,102,241,0.1);
+  background: rgba(255,255,255,0.05);
+}
+.review-textarea::placeholder { color: #334155; }
+
+/* Footer */
+.review-modal-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 20px;
+  border-top: 1px solid rgba(255,255,255,0.04);
+  background: rgba(0,0,0,0.2);
+  flex-direction: row-reverse;
+}
+.review-submit-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 10px 22px;
+  background: linear-gradient(135deg, #6366f1, #4f46e5);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-family: 'Alexandria', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: 0 4px 14px rgba(99,102,241,0.35);
+}
+.review-submit-btn:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(99,102,241,0.5); }
+.review-cancel-btn {
+  background: transparent;
+  border: none;
+  color: #475569;
+  font-family: 'Alexandria', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: color 0.2s;
+  padding: 0;
+}
+.review-cancel-btn:hover { color: #94a3b8; }
+</style>
+
+<style>
+/* ===== LICENSE PAGE ===== */
+.lic-page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.lic-page-title {
+  font-family: 'Alexandria', sans-serif;
+  font-size: 1.45rem;
+  font-weight: 900;
+  color: #f8fafc;
+  margin: 0 0 8px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  line-height: 1.2;
+}
+.lic-page-title span {
+  background: linear-gradient(135deg, #818cf8 0%, #06b6d4 50%, #a78bfa 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shine-title 3s linear infinite;
+  font-style: italic;
+  padding: 0 4px;
+  display: inline-block;
+}
+@keyframes shine-title {
+  0% { background-position: 0% center; }
+  100% { background-position: 200% center; }
+}
+.lic-title-icon {
+  font-size: 1.4rem;
+  background: linear-gradient(135deg, #818cf8, #06b6d4);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  filter: drop-shadow(0 0 8px rgba(129, 140, 248, 0.5));
+}
+.lic-page-desc {
+  font-family: 'Alexandria', sans-serif;
+  color: #64748b;
+  font-size: 0.82rem;
+  margin: 0;
+  margin-top: 6px;
+}
+.lic-header-stat {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(99, 102, 241, 0.1);
+  border: 1px solid rgba(99, 102, 241, 0.25);
+  padding: 8px 16px;
+  border-radius: 50px;
+  color: #818cf8;
+  font-family: 'Alexandria', sans-serif;
+  font-weight: 700;
+  font-size: 0.82rem;
+}
+.lic-header-stat i { font-size: 1rem; }
+
+/* ===== GRID ===== */
+.license-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 28px;
+}
+
+/* ===== CARD ===== */
+.lic-card {
+  background: rgba(12, 13, 22, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 24px;
+  overflow: hidden;
+  backdrop-filter: blur(20px);
+  transition: all 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  display: flex;
+  flex-direction: column;
+}
+.lic-card:hover {
+  border-color: rgba(99, 102, 241, 0.35);
+  transform: translateY(-6px);
+  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.5), 0 0 30px rgba(99, 102, 241, 0.1);
+}
+
+/* Thumbnail */
+.lic-card-thumb {
+  position: relative;
+  height: 130px;
+  background-size: cover;
+  background-position: center;
+}
+.lic-card-thumb-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(12,13,22,0.97) 100%);
+}
+.lic-card-thumb-content {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 20px 22px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  flex-direction: row-reverse;
+}
+.lic-script-name {
+  font-family: 'Alexandria', sans-serif;
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: #f8fafc;
+  margin: 0;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.8);
+}
+
+/* Status Badge */
+.lic-status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 6px 14px;
+  border-radius: 50px;
+  font-family: 'Alexandria', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+.lic-status-badge.badge-active {
+  background: rgba(16, 185, 129, 0.15);
+  border: 1px solid rgba(16, 185, 129, 0.35);
+  color: #10b981;
+}
+.lic-status-badge.badge-inactive {
+  background: rgba(244, 63, 94, 0.12);
+  border: 1px solid rgba(244, 63, 94, 0.3);
+  color: #f43f5e;
+}
+.badge-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: currentColor;
+  flex-shrink: 0;
+}
+.badge-active .badge-dot { animation: pulse-dot 1.5s infinite; }
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(1.4); }
+}
+
+/* Card Body */
+.lic-card-body {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  flex: 1;
+}
+
+/* License Key */
+.lic-key-section { display: flex; flex-direction: column; gap: 8px; }
+.lic-key-label {
+  font-family: 'Alexandria', sans-serif;
+  font-size: 0.8rem;
+  color: #64748b;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.lic-key-box {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 10px;
+  padding: 9px 12px;
+  gap: 8px;
+}
+.lic-key-text {
+  font-family: 'Courier New', monospace;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #a5b4fc;
+  letter-spacing: 0.5px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  flex: 1;
+}
+.lic-copy-btn {
+  background: transparent;
+  border: none;
+  color: #06b6d4;
+  cursor: pointer;
+  padding: 6px 8px;
+  border-radius: 8px;
+  font-size: 1rem;
+  flex-shrink: 0;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+}
+.lic-copy-btn:hover { background: rgba(6, 182, 212, 0.15); color: #fff; }
+
+/* Info Grid */
+.lic-info-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 14px;
+  overflow: hidden;
+}
+.lic-info-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  flex-direction: row-reverse;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+}
+.lic-info-item:last-child { border-bottom: none; }
+.lic-info-icon {
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  background: rgba(99, 102, 241, 0.1);
+  border: 1px solid rgba(99, 102, 241, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #818cf8;
+  font-size: 0.85rem;
+  flex-shrink: 0;
+}
+.lic-info-label {
+  font-family: 'Alexandria', sans-serif;
+  font-size: 0.68rem;
+  color: #64748b;
+  font-weight: 600;
+  margin-bottom: 1px;
+}
+.lic-info-value {
+  font-family: 'Alexandria', sans-serif;
+  font-size: 0.82rem;
+  color: #e2e8f0;
+  font-weight: 700;
+}
+.lic-type {
+  background: linear-gradient(135deg, #6366f1, #06b6d4);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Buttons */
+.lic-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: auto;
+}
+.lic-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  padding: 10px 16px;
+  border-radius: 10px;
+  font-family: 'Alexandria', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 700;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  width: 100%;
+}
+.lic-btn-download {
+  background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+  color: #fff;
+  box-shadow: 0 4px 15px rgba(99, 102, 241, 0.35);
+}
+.lic-btn-download:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(99, 102, 241, 0.5);
+  color: #fff;
+}
+.lic-btn-disabled {
+  background: rgba(255, 255, 255, 0.05);
+  color: #475569;
+  cursor: not-allowed;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+.lic-btn-review {
+  background: rgba(251, 191, 36, 0.1);
+  border: 1px solid rgba(251, 191, 36, 0.25);
+  color: #fbbf24;
+  width: auto;
+  padding: 10px 14px;
+  flex-shrink: 0;
+}
+.lic-btn-review:hover {
+  background: rgba(251, 191, 36, 0.2);
+  color: #fbbf24;
+}
+.lic-btn-reviewed {
+  background: rgba(16, 185, 129, 0.08);
+  border: 1px solid rgba(16, 185, 129, 0.2);
+  color: #10b981;
+  width: auto;
+  padding: 10px 14px;
+  flex-shrink: 0;
+  cursor: default;
+}
+
+/* Empty State */
+.lic-empty {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 80px 40px;
+  background: rgba(12, 13, 22, 0.5);
+  border: 1px dashed rgba(255, 255, 255, 0.08);
+  border-radius: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+.lic-empty-icon {
+  width: 80px;
+  height: 80px;
+  border-radius: 20px;
+  background: rgba(99, 102, 241, 0.08);
+  border: 1px solid rgba(99, 102, 241, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.2rem;
+  color: #4f46e5;
+}
+.lic-empty h3 {
+  font-family: 'Alexandria', sans-serif;
+  font-size: 1.4rem;
+  color: #e2e8f0;
+  font-weight: 700;
+  margin: 0;
+}
+.lic-empty p {
+  font-family: 'Alexandria', sans-serif;
+  color: #64748b;
+  font-size: 0.95rem;
+  margin: 0;
+  max-width: 400px;
+}
+
+/* Rating Stars */
+.rating { display: flex; flex-direction: row-reverse; justify-content: center; gap: 8px; }
+.rating input { display: none; }
+.rating label { cursor: pointer; color: #334155; font-size: 2.2rem; transition: all 0.2s ease; }
+.rating input:checked ~ label, .rating label:hover, .rating label:hover ~ label { color: #fbbf24; text-shadow: 0 0 10px rgba(251, 191, 36, 0.4); }
+
+@media (max-width: 640px) {
+  .license-grid { grid-template-columns: 1fr; }
+  .lic-page-header { flex-direction: column; align-items: flex-start; }
+  .lic-page-title { font-size: 1.8rem; }
+}
+</style>
+
+<script>
+    function openReviewModal(scriptName) {
+        document.getElementById('modalScriptName').innerText = scriptName;
+        document.getElementById('inputScriptName').value = scriptName;
+        const modalEl = document.getElementById('reviewModal');
+        try {
+            let modal = bootstrap.Modal.getInstance(modalEl);
+            if (!modal) {
+                modal = new bootstrap.Modal(modalEl);
+            }
+            modal.show();
+        } catch (e) {
+            modalEl.classList.add('show');
+            modalEl.style.display = 'block';
+            modalEl.style.backgroundColor = 'rgba(0,0,0,0.8)';
+            document.body.classList.add('modal-open');
+        }
+    }
+
+    function closeReviewModal() {
+        const modalEl = document.getElementById('reviewModal');
+        try {
+            let modal = bootstrap.Modal.getInstance(modalEl);
+            if (modal) {
+                modal.hide();
+            }
+        } catch (e) {
+            modalEl.classList.remove('show');
+            modalEl.style.display = 'none';
+            document.body.classList.remove('modal-open');
+        }
+    }
+
+    function copyToClipboard(text) {
+        navigator.clipboard.writeText(text).then(function() {
+            Swal.fire({
+                toast: true,
+                position: 'top-end',
+                icon: 'success',
+                title: 'تم نسخ مفتاح الترخيص!',
+                showConfirmButton: false,
+                timer: 2000,
+                background: '#0c0d14',
+                color: '#fff'
+            });
+        }, function(err) {
+            console.error('Could not copy text: ', err);
+        });
+    }
+</script>
+
+<script src="https://a.cordly.de/tablerio/dist/js/tabler.min.js"></script>
+</body>
+</html>

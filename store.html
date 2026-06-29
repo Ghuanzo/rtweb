@@ -1,0 +1,763 @@
+<!doctype html>
+<html lang="ar" dir="rtl" data-bs-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" href="/img/logo.png" type="image/webp">
+  <title>Store - Lua Support</title>
+  
+  <link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta20/dist/css/tabler.min.css" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
+  <link rel="stylesheet" href="style.css">
+  <script src="irbid.js" defer></script>
+</head>
+<body data-bs-theme="dark">
+  <div class="page">
+    
+    <!-- Navbar -->
+    <nav class="ipx-navbar" id="ipxNav">
+      <div class="ipx-nav-container">
+
+        <!-- Logo -->
+        <a href="/" class="ipx-logo">
+          <img src="/img/logo.png" alt="Logo" class="ipx-logo-img">
+          <span class="ipx-logo-text">Lua Support</span>
+        </a>
+
+        <!-- Center Links -->
+        <ul class="ipx-nav-links" id="ipxLinks">
+          <li class="">
+            <a href="/"><span>الرئيسية</span></a>
+          </li>
+          <li class="ipx-active">
+            <a href="/store"><span>المنتجات</span></a>
+          </li>
+          <li class="">
+            <a href="/license"><span>رخصي</span></a>
+          </li>
+          <li class="">
+            <a href="/change"><span>التحكم</span></a>
+          </li>
+          <li class="">
+            <a href="/free"><span>مجاني</span></a>
+          </li>
+
+          
+        </ul>
+
+        <!-- Right: Actions -->
+        <div class="ipx-nav-actions">
+          
+          <a href="/login" class="ipx-login-btn">
+            <i class="ti ti-brand-discord"></i>
+            <span>تسجيل دخول</span>
+          </a>
+          
+
+          <!-- Mobile Toggle -->
+          <button class="ipx-toggle" id="ipxToggle" aria-label="Menu">
+            <i class="ti ti-menu-2"></i>
+          </button>
+        </div>
+
+      </div>
+
+      <!-- Mobile Drawer -->
+      <div class="ipx-mobile-menu" id="ipxMobile">
+        <a href="/" class="">
+          <i class="ti ti-home-2"></i> الرئيسية
+        </a>
+        <a href="/store" class="ipx-mobile-active">
+          <i class="ti ti-shopping-bag"></i> المنتجات
+        </a>
+        <a href="/license" class="">
+          <i class="ti ti-id-badge"></i> رخصي
+        </a>
+        <a href="/change" class="">
+          <i class="ti ti-adjustments-horizontal"></i> التحكم
+        </a>
+        <a href="/free" class="">
+          <i class="ti ti-gift"></i> مجاني
+        </a>
+
+        
+        <a href="/login" class="ipx-mobile-login"><i class="ti ti-brand-discord"></i> تسجيل دخول</a>
+        
+      </div>
+    </nav>
+
+    
+
+    <script>
+    (function(){
+      const nav    = document.getElementById('ipxNav');
+      const toggle = document.getElementById('ipxToggle');
+      const mobile = document.getElementById('ipxMobile');
+      const avatarBtn = document.getElementById('ipxAvatarBtn');
+      const userDrop  = document.getElementById('ipxUserDrop');
+
+      // Scroll effect
+      window.addEventListener('scroll', function(){
+        nav.classList.toggle('ipx-scrolled', window.scrollY > 30);
+      }, { passive: true });
+
+      // Mobile toggle
+      if (toggle) {
+        toggle.addEventListener('click', function(){
+          mobile.classList.toggle('ipx-mobile-open');
+          toggle.querySelector('i').className = mobile.classList.contains('ipx-mobile-open')
+            ? 'ti ti-x' : 'ti ti-menu-2';
+        });
+      }
+
+      // User dropdown
+      if (avatarBtn && userDrop) {
+        avatarBtn.addEventListener('click', function(e){
+          e.stopPropagation();
+          userDrop.classList.toggle('ipx-drop-open');
+        });
+        document.addEventListener('click', function(){
+          userDrop.classList.remove('ipx-drop-open');
+        });
+      }
+
+      // Dropdown hover for desktop admin
+      document.querySelectorAll('.ipx-has-dropdown').forEach(function(item){
+        item.addEventListener('mouseenter', function(){
+          this.querySelector('.ipx-dropdown').style.display = 'flex';
+        });
+        item.addEventListener('mouseleave', function(){
+          this.querySelector('.ipx-dropdown').style.display = '';
+        });
+      });
+    })();
+    </script>
+
+
+<div class="page-wrapper position-relative" style="padding-top: 16px; padding-bottom: 60px;">
+  <!-- Glow background blobs -->
+  <div class="glowing-blob blob-1" style="top: 10%; left: 5%;"></div>
+  <div class="glowing-blob blob-2" style="bottom: 10%; right: 5%;"></div>
+  
+  <div class="container-xl position-relative" style="z-index: 1;" dir="rtl">
+    
+    <!-- Premium Top Search and Filter bar -->
+    <div class="store-filter-bar" dir="rtl">
+        <div class="filter-pills">
+            <button class="pill-btn active" data-filter="all" onclick="setFilter('all')">الكل</button>
+            <button class="pill-btn" data-filter="new" onclick="setFilter('new')"><i class="ti ti-sparkles" style="color: #fbbf24;"></i> جديد</button>
+            <button class="pill-btn" data-filter="popular" onclick="setFilter('popular')"><i class="ti ti-flame" style="color: #ef4444;"></i> شائع</button>
+            <button class="pill-btn" data-filter="files" onclick="setFilter('files')"><i class="ti ti-folder" style="color: #3b82f6;"></i> ملفات</button>
+            <button class="pill-btn" data-filter="scripts" onclick="setFilter('scripts')"><i class="ti ti-code" style="color: #10b981;"></i> سكربتات</button>
+        </div>
+
+        <!-- Divider -->
+        <div class="filter-divider"></div>
+
+        <!-- Search Input -->
+        <div class="search-wrap">
+            <i class="ti ti-search search-icon"></i>
+            <input type="text" id="scriptSearch" placeholder="بحث..." class="search-input" oninput="filterScripts()">
+        </div>
+    </div>
+
+    
+
+
+    <!-- Featured Product Banner -->
+    
+
+    <!-- Scripts Grid -->
+    <div class="custom-store-grid mb-5" id="scriptsGrid">
+      
+      <div class="store-card script-card-item position-relative d-flex flex-column" data-title="سكربت الفايتات" data-type="script" data-new="true" data-popular="false" onclick="openPreview('سكربت الفايتات', 'https://youtu.be/B7WqiUmgEy8?si=nuHHVZDbOsdC9wM5', '$35', '19', 'https://media.discordapp.net/attachments/1516863571877957732/1518198859455664168/f6c715a4c26d7ebf.png?ex=6a3e525e&amp;is=6a3d00de&amp;hm=38afebfbd993acd9525e867533515861cf6a79a7a35ac0b3d6834afa9cf315f6&amp;=&amp;format=webp&amp;quality=lossless&amp;width=1423&amp;height=800', false, false)" style="cursor:pointer;">
+          
+          <!-- Hover Play Icon -->
+          <div class="play-overlay">
+              <div class="play-icon-circle">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg" style="margin-left: 2px;">
+                      <path d="M7 4V20L20 12L7 4Z" fill="currentColor"/>
+                  </svg>
+              </div>
+          </div>
+
+          <!-- Thumbnail Container -->
+          <div class="card-thumb position-relative" style="width: 100%; background: transparent; overflow: hidden; border-radius: 12px 12px 0 0;">
+              <img src="https://media.discordapp.net/attachments/1516863571877957732/1518198859455664168/f6c715a4c26d7ebf.png?ex=6a3e525e&amp;is=6a3d00de&amp;hm=38afebfbd993acd9525e867533515861cf6a79a7a35ac0b3d6834afa9cf315f6&amp;=&amp;format=webp&amp;quality=lossless&amp;width=1423&amp;height=800" style="width: 100%; height: auto; display: block;" alt="سكربت الفايتات">
+              <div class="card-thumbnail-overlay" style="position: absolute; inset: 0; background: linear-gradient(180deg, transparent 0%, rgba(11, 15, 25, 0.5) 100%); pointer-events: none;"></div>
+              
+              <!-- Price badge -->
+              <span class="price-badge-overlay" style="position: absolute; bottom: 14px; left: 14px; background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: #ffffff; padding: 6px 16px; border-radius: 10px; font-weight: 900; font-family: 'Alexandria', sans-serif; font-size: 1rem; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 4px 15px rgba(16,185,129,0.4); text-shadow: 0 1px 2px rgba(0,0,0,0.3);">$35</span>
+              
+              
+              <span style="position: absolute; top: 10px; right: 10px; background: rgba(168, 85, 247, 0.2); backdrop-filter: blur(4px); border: 1px solid rgba(168, 85, 247, 0.4); color: #e9d5ff; padding: 2px 8px; border-radius: 4px; font-size: 0.7rem; font-weight: bold; font-family: 'Alexandria', sans-serif;"><i class="ti ti-sparkles"></i> جديد</span>
+              
+          </div>
+          
+          <div class="card-body" dir="rtl" style="padding: 16px; flex: 1; display: flex; flex-direction: column; justify-content: flex-start;">
+              <div class="d-flex justify-content-between align-items-start mb-2">
+                  <h4 class="text-white fw-bold m-0" style="font-size: 1.15rem; line-height: 1.4; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-family: 'Alexandria', sans-serif;">سكربت الفايتات</h4>
+                  <span style="background: rgba(168,85,247,0.1); color: #a855f7; font-weight: 800; font-size: 0.65rem; padding: 3px 8px; border-radius: 6px; letter-spacing: 0.05em; text-transform: uppercase; font-family: 'Alexandria', sans-serif;">SCRIPT</span>
+              </div>
+              <p class="text-muted small m-0 mt-auto" style="font-family: 'Alexandria', sans-serif; font-size: 0.85rem;">اضغط للتفاصيل والمعاينة</p>
+          </div>
+      </div>
+      
+    </div>
+
+  </div>
+</div>
+
+<!-- Preview Modal -->
+<div class="modal fade" id="previewVideoModal" tabindex="-1" role="dialog" aria-hidden="true" style="z-index: 99999;">
+  <div class="modal-dialog modal-dialog-centered preview-modal-dialog" role="document">
+    <div class="preview-modal-box" dir="rtl">
+      
+      <!-- Close Button -->
+      <button class="preview-close-btn-modern" data-bs-dismiss="modal" onclick="closePreviewModal()">
+        <i class="ti ti-x"></i>
+      </button>
+
+      <!-- Video / Image Section (Edge to Edge) -->
+      <div class="preview-media-modern">
+        <div class="video-container" id="videoContainer">
+          <iframe id="previewVideoFrame" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+      </div>
+
+      <!-- Info Section -->
+      <div class="preview-info-compact" dir="rtl">
+        <div class="d-flex justify-content-between align-items-center mb-2">
+            <h2 class="preview-title-compact m-0" id="modalScriptTitle"></h2>
+            <div class="preview-price-compact m-0" id="modalScriptPrice"></div>
+        </div>
+        
+        <p class="text-muted mb-3" style="font-size: 0.85rem; font-family: 'Alexandria', sans-serif; line-height: 1.5;">
+          سكربت احترافي متكامل بأسلوب عصري وأداء عالي ليناسب سيرفرك ويقدم أفضل تجربة للمستخدمين.
+        </p>
+
+        <!-- Features -->
+        <div class="preview-trust-compact d-flex flex-wrap gap-2 mb-4">
+          <div class="trust-badge-compact"><i class="ti ti-shield-check"></i> آمن وموثوق</div>
+          <div class="trust-badge-compact"><i class="ti ti-bolt"></i> تسليم فوري</div>
+          <div class="trust-badge-compact"><i class="ti ti-headset"></i> دعم فني</div>
+        </div>
+
+        <!-- Buttons -->
+        <div class="preview-actions-compact d-flex gap-2">
+          <a id="modalBuyBtn" href="#" class="btn preview-buy-btn-compact flex-grow-1">
+            <i class="ti ti-brand-discord fs-5"></i> إتمام الشراء عبر الديسكورد
+          </a>
+          <button class="btn preview-close-text-btn-compact" data-bs-dismiss="modal" onclick="closePreviewModal()">
+            إلغاء
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<style>
+/* Custom Styles for Store */
+:root {
+    --emerald-primary: #8b5cf6;
+    --emerald-hover: #059669;
+    --emerald-glow: rgba(139, 92, 246, 0.25);
+    --card-bg-dark: #0d0c15;
+}
+
+.custom-store-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    margin-top: 24px;
+}
+
+@media (max-width: 1200px) {
+    .custom-store-grid { grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width: 900px) {
+    .custom-store-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 576px) {
+    .custom-store-grid { grid-template-columns: 1fr; }
+}
+
+.script-card-item {
+    background: #0c0d14 !important;
+    border: 1px solid rgba(255,255,255,0.05) !important;
+    border-radius: 16px !important;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
+    overflow: hidden;
+}
+.script-card-item:hover {
+    border-color: rgba(168, 85, 247, 0.4) !important;
+    transform: translateY(-5px) !important;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.6), 0 0 25px rgba(168, 85, 247, 0.1) !important;
+}
+
+.play-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(12, 13, 20, 0.65);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: all 0.3s ease;
+    z-index: 10;
+    border-radius: inherit;
+}
+.play-icon-circle {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #a855f7 0%, #7c3aed 100%);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    transform: scale(0.8);
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 0 10px 25px rgba(124, 58, 237, 0.4);
+}
+.script-card-item:hover .play-overlay,
+.featured-thumb-wrap:hover .play-overlay { opacity: 1; }
+.script-card-item:hover .play-icon-circle,
+.featured-thumb-wrap:hover .play-icon-circle { transform: scale(1); }
+
+/* ===== FILTER BAR ===== */
+.store-filter-bar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(12, 13, 22, 0.7);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 14px;
+    padding: 8px 12px;
+    backdrop-filter: blur(20px);
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+.filter-pills {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+.filter-divider {
+    width: 1px;
+    height: 22px;
+    background: rgba(255,255,255,0.07);
+    flex-shrink: 0;
+}
+.pill-btn {
+    background: transparent;
+    border: 1px solid rgba(255,255,255,0.05);
+    color: #64748b;
+    padding: 6px 14px;
+    border-radius: 8px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: 'Alexandria', sans-serif;
+    white-space: nowrap;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+}
+.pill-btn:hover {
+    color: #cbd5e1;
+    border-color: rgba(255,255,255,0.12);
+    background: rgba(255,255,255,0.03);
+}
+.pill-btn.active {
+    background: rgba(168, 85, 247, 0.15) !important;
+    border-color: rgba(168, 85, 247, 0.45) !important;
+    color: #d8b4fe !important;
+}
+
+/* Search */
+.search-wrap {
+    position: relative;
+    margin-right: auto;
+}
+.search-icon {
+    position: absolute;
+    right: 11px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #475569;
+    font-size: 0.9rem;
+    pointer-events: none;
+}
+.search-input {
+    background: rgba(0,0,0,0.3);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 9px;
+    padding: 7px 32px 7px 12px;
+    color: #e2e8f0;
+    font-size: 0.82rem;
+    font-family: 'Alexandria', sans-serif;
+    width: 180px;
+    outline: none;
+    transition: all 0.2s;
+    direction: rtl;
+}
+.search-input:focus {
+    border-color: rgba(168,85,247,0.45);
+    background: rgba(0,0,0,0.45);
+    width: 220px;
+    box-shadow: 0 0 0 3px rgba(168,85,247,0.08);
+}
+.search-input::placeholder { color: #334155; }
+
+/* Section Header */
+.store-section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+}
+.store-section-header h3 {
+    font-family: 'Alexandria', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: #f1f5f9;
+    margin: 0;
+}
+.store-count-badge {
+    font-family: 'Alexandria', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: #475569;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.06);
+    padding: 4px 12px;
+    border-radius: 20px;
+}
+
+.featured-banner-card:hover {
+    border-color: rgba(168, 85, 247, 0.3) !important;
+    box-shadow: 0 20px 45px rgba(0,0,0,0.6), 0 0 35px rgba(168, 85, 247, 0.08) !important;
+}
+
+/* ===== COMPACT PREVIEW MODAL ===== */
+.preview-modal-dialog { max-width: 520px; }
+.preview-modal-box {
+  background: #0f111a;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.6), 0 0 20px rgba(168,85,247,0.08);
+  position: relative;
+  pointer-events: auto; /* Fixes bootstrap modal blocking clicks */
+}
+
+.preview-close-btn-modern {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s;
+  z-index: 10;
+  font-size: 1rem;
+}
+.preview-close-btn-modern:hover {
+  background: rgba(239, 68, 68, 0.9);
+  border-color: rgba(239, 68, 68, 1);
+}
+
+.preview-media-modern {
+  width: 100%;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+.video-container {
+  position: relative;
+  width: 100%;
+  padding-top: 56.25%; /* 16:9 */
+  background: #050505;
+  background-size: cover;
+  background-position: center;
+}
+.video-container iframe {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  border: 0;
+}
+
+.preview-info-compact {
+  padding: 24px;
+  text-align: right;
+}
+
+.preview-title-compact {
+  font-family: 'Alexandria', sans-serif;
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: #f8fafc;
+}
+
+.preview-price-compact {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #4ade80; 
+  font-family: var(--font-nums, monospace);
+  background: rgba(74, 222, 128, 0.1);
+  padding: 4px 12px;
+  border-radius: 8px;
+  border: 1px solid rgba(74, 222, 128, 0.2);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.trust-badge-compact {
+  font-family: 'Alexandria', sans-serif;
+  font-size: 0.75rem;
+  color: #cbd5e1;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.05);
+  padding: 6px 10px;
+  border-radius: 8px;
+}
+.trust-badge-compact i { color: #a855f7; font-size: 1rem; }
+
+.preview-buy-btn-compact {
+  background: linear-gradient(135deg, #a855f7 0%, #7c3aed 100%);
+  color: #fff !important;
+  border: none;
+  border-radius: 10px;
+  font-family: 'Alexandria', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 700;
+  padding: 10px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  transition: all 0.2s;
+}
+.preview-buy-btn-compact:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 15px rgba(124, 58, 237, 0.3);
+}
+
+.preview-close-text-btn-compact {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #94a3b8 !important;
+  border-radius: 10px;
+  font-family: 'Alexandria', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 10px 20px;
+  transition: all 0.2s;
+}
+.preview-close-text-btn-compact:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff !important;
+}
+
+</style>
+
+<script>
+    let currentFilter = 'all';
+
+    function setFilter(filter) {
+        currentFilter = filter;
+        
+        // Update active class on buttons
+        document.querySelectorAll('.pill-btn').forEach(btn => {
+            if (btn.getAttribute('data-filter') === filter) {
+                btn.classList.add('active');
+            } else {
+                btn.classList.remove('active');
+            }
+        });
+        
+        filterScripts();
+    }
+
+    function filterScripts() {
+        const searchVal = document.getElementById('scriptSearch').value.toLowerCase().trim();
+        let visibleCount = 0;
+        
+        // Featured Banner
+        const featuredCard = document.getElementById('featuredBannerCard');
+        if (featuredCard) {
+            const title = featuredCard.getAttribute('data-title') || '';
+            const type = featuredCard.getAttribute('data-type') || '';
+            let matchesSearch = title.includes(searchVal);
+            
+            // Only show featured banner if the filter is 'all'
+            if (currentFilter === 'all') {
+                if (matchesSearch) {
+                    featuredCard.style.removeProperty('display');
+                    visibleCount++;
+                } else {
+                    featuredCard.style.setProperty('display', 'none', 'important');
+                }
+            } else {
+                featuredCard.style.setProperty('display', 'none', 'important');
+            }
+        }
+        
+        // Update section title based on filter
+        const sectionTitle = document.getElementById('scripts-section-title');
+        if (sectionTitle) {
+            if (currentFilter === 'new') sectionTitle.innerText = 'منتجات جديدة';
+            else if (currentFilter === 'popular') sectionTitle.innerText = 'المنتجات الشائعة';
+            else if (currentFilter === 'scripts') sectionTitle.innerText = 'السكربتات';
+            else if (currentFilter === 'web') sectionTitle.innerText = 'المواقع';
+            else if (currentFilter === 'bots') sectionTitle.innerText = 'البوتات';
+            else sectionTitle.innerText = 'كل المنتجات';
+        }
+        
+        // Grid Cards
+        const cards = document.querySelectorAll('.script-card-item');
+        cards.forEach(card => {
+            const title = card.getAttribute('data-title') || '';
+            const type = card.getAttribute('data-type') || '';
+            const isNew = card.getAttribute('data-new') === 'true';
+            const isPopular = card.getAttribute('data-popular') === 'true';
+            
+            let matchesSearch = title.includes(searchVal);
+            let matchesFilter = false;
+            
+            if (currentFilter === 'all') {
+                matchesFilter = true;
+            } else if (currentFilter === 'new') {
+                matchesFilter = isNew;
+            } else if (currentFilter === 'popular') {
+                matchesFilter = isPopular;
+            } else if (currentFilter === 'files') {
+                matchesFilter = (type === 'files');
+            } else if (currentFilter === 'scripts') {
+                matchesFilter = (type === 'script');
+            }
+            
+            if (matchesSearch && matchesFilter) {
+                card.style.removeProperty('display');
+                visibleCount++;
+            } else {
+                card.style.setProperty('display', 'none', 'important');
+            }
+        });
+        
+        // Update count label
+        const countLabel = document.getElementById('scripts-count-label');
+        if (countLabel) {
+            countLabel.innerText = visibleCount + ' منتج';
+        }
+    }
+
+    function getYoutubeId(url) {
+        if (!url) return null;
+        const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+        const match = url.match(regExp);
+        return (match && match[2].length === 11) ? match[2] : null;
+    }
+
+    function openPreview(title, youtubeUrl, priceText, id, image, isOwned, isLoggedIn) {
+        document.getElementById('modalScriptTitle').innerText = title;
+        document.getElementById('modalScriptPrice').innerText = priceText;
+        
+        // Dynamic purchase/redirect buttons
+        const buyBtn = document.getElementById('modalBuyBtn');
+        if (isOwned) {
+            buyBtn.href = "/license";
+            buyBtn.removeAttribute('target');
+            buyBtn.style.background = "linear-gradient(135deg, #10b981 0%, #059669 100%)";
+            buyBtn.style.boxShadow = "0 10px 25px rgba(16, 185, 129, 0.4)";
+            buyBtn.innerHTML = '<i class="ti ti-check fs-4"></i> ممتلك بالفعل - انتقل للتنزيل';
+        } else {
+            buyBtn.href = "https://discord.com/oauth2/authorize?client_id=1469058759023395008&amp;response_type=code&amp;redirect_uri=http%3A%2F%2Fluaspport.shop%2Fprocess-oauth&amp;scope=identify+email+guilds+guilds.join";
+            buyBtn.target = "_blank";
+            buyBtn.style.background = "linear-gradient(135deg, #5865F2 0%, #4752C4 100%)";
+            buyBtn.style.boxShadow = "0 10px 25px rgba(88, 101, 242, 0.4)";
+            buyBtn.innerHTML = '<i class="ti ti-brand-discord fs-4"></i> شراء من الديسكورد';
+        }
+        
+        const videoFrame = document.getElementById('previewVideoFrame');
+        const container = document.querySelector('.video-container');
+        const ytId = getYoutubeId(youtubeUrl);
+        
+        if (ytId) {
+            container.style.backgroundImage = 'none';
+            videoFrame.style.display = 'block';
+            videoFrame.src = "https://www.youtube.com/embed/" + ytId + "?autoplay=1&rel=0";
+        } else {
+            videoFrame.style.display = 'none';
+            videoFrame.src = "";
+            container.style.backgroundImage = "url('" + image + "')";
+        }
+        
+        const modalEl = document.getElementById('previewVideoModal');
+        try {
+            let modal = bootstrap.Modal.getInstance(modalEl);
+            if (!modal) {
+                modal = new bootstrap.Modal(modalEl);
+            }
+            modal.show();
+        } catch (e) {
+            modalEl.classList.add('show');
+            modalEl.style.display = 'block';
+            modalEl.style.backgroundColor = 'rgba(0,0,0,0.8)';
+            document.body.classList.add('modal-open');
+        }
+    }
+
+    function closePreviewModal() {
+        const modalEl = document.getElementById('previewVideoModal');
+        const videoFrame = document.getElementById('previewVideoFrame');
+        if (videoFrame) {
+            videoFrame.src = "";
+        }
+        try {
+            let modal = bootstrap.Modal.getInstance(modalEl);
+            if (modal) {
+                modal.hide();
+            }
+        } catch (e) {
+            modalEl.classList.remove('show');
+            modalEl.style.display = 'none';
+            document.body.classList.remove('modal-open');
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const previewModalEl = document.getElementById('previewVideoModal');
+        if (previewModalEl) {
+            previewModalEl.addEventListener('hidden.bs.modal', function () {
+                const videoFrame = document.getElementById('previewVideoFrame');
+                if (videoFrame) {
+                    videoFrame.src = "";
+                }
+            });
+        }
+    });
+</script>
+
+<script src="https://a.cordly.de/tablerio/dist/js/tabler.min.js"></script>
+</body>
+</html>
